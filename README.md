@@ -16,8 +16,28 @@
 | **CUDA Básico** | `barenn.cu` | 27.123 s ± 1.260 s | 0.05x | 95.4% | [`v0.3-cuda-basic`](../../releases/tag/v0.3-cuda-basic) |
 | **CUDA Otimizado** | `barenn_cuda_opt.cu` | 16.735 s ± 0.039 s | 0.08x | 95.4% | [`v0.4-cuda-opt`](../../releases/tag/v0.4-cuda-opt) |
 
-**Ambiente:** WSL2 Ubuntu 24.04, i9-11900H @ 2.50GHz, RTX 3060 Laptop GPU (30 SMs, Compute 8.6)
+**Ambiente local:** WSL2 Ubuntu 24.04, i9-11900H @ 2.50GHz, RTX 3060 Laptop GPU (30 SMs, Compute 8.6)
 **Compilação CPU:** `g++ -O3 -fopenmp -march=native -std=c++17` | **CUDA:** `nvcc -arch=sm_86 -O3 -std=c++17`
+
+### Comparativo: Local vs Cluster Franky (Insper HPC)
+
+| Versão | Local (i9 + RTX 3060 Laptop) | Franky (Xeon + RTX A1000) | Razão Franky/Local |
+|:---|:---|:---|:---|
+| **Baseline (legado)** | 1.343 s | **0.471 s** | 2.85x mais rápido |
+| **CPU Otimizado (16T)** | 7.650 s | 9.867 s | 0.78x (overhead OpenMP similar) |
+| **CUDA Básico** | 27.123 s | **7.073 s** | 3.83x mais rápido |
+| **CUDA Otimizado** | 16.735 s | **4.253 s** | 3.94x mais rápido |
+
+**Cluster Franky:** Intel Xeon (nó de computação), NVIDIA RTX A1000 (18 SMs, Compute 8.6, 7838 MB VRAM)
+
+**Análise cross-environment:**
+- O Xeon do Franky é ~2.85x mais rápido que o i9 mobile no baseline (clock + cache superiores em servidor)
+- A RTX A1000 (18 SMs) é ~3.9x mais rápida que a RTX 3060 Laptop (30 SMs) nos kernels CUDA — apesar de ter menos SMs, o ambiente de servidor tem menor overhead de driver/OS e melhor throughput PCIe
+- No Franky, o **CUDA otimizado (4.25s)** é mais rápido que o **CUDA básico (7.07s)** — as otimizações de streams/pinned memory/fused kernels dão **1.66x speedup**, consistente com o 1.62x observado localmente
+- O OpenMP permanece ineficaz em ambos ambientes para camadas pequenas (Lei de Amdahl)
+- Mesmo no Franky, CUDA opt (4.25s) é 9x mais lento que o baseline CPU (0.47s) — confirmando que redes pequenas não beneficiam de GPU
+
+Dados completos: [`profiling/franky_all_output.txt`](profiling/franky_all_output.txt)
 
 ---
 
