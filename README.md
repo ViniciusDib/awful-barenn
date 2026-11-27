@@ -1,3 +1,73 @@
+# BareNN — Otimização de Rede Neural Feedforward: CPU e CUDA
+
+**Disciplina:** Supercomputação 2026.2 — Profa. Licia Sales (Insper)
+**Autor:** Vinicius Dib
+**Rede:** Feedforward 64→32→16→10 (ReLU, Online SGD, lr=0.02, 51 épocas, seed 1337)
+**Dataset:** optdigits (3823 treino, 1797 teste)
+
+---
+
+## Tabela Consolidada de Resultados
+
+| Versão | Arquivo | Tempo (mean ± σ) | Speedup vs Baseline | Acurácia | Tag |
+|:---|:---|:---|:---|:---|:---|
+| **Baseline (legado)** | `barenn.cpp` | 1.343 s ± 0.096 s | 1.00x | 95.5% | [`v0.1-baseline`](../../releases/tag/v0.1-baseline) |
+| **CPU Otimizado** | `barenn_cpu.cpp` | 0.563 s ± 0.037 s | **2.39x** | 95.6% | [`v0.2-cpu-opt`](../../releases/tag/v0.2-cpu-opt) |
+| **CUDA Básico** | `barenn.cu` | 27.123 s ± 1.260 s | 0.05x | 95.4% | [`v0.3-cuda-basic`](../../releases/tag/v0.3-cuda-basic) |
+| **CUDA Otimizado** | `barenn_cuda_opt.cu` | 16.735 s ± 0.039 s | 0.08x | 95.4% | [`v0.4-cuda-opt`](../../releases/tag/v0.4-cuda-opt) |
+
+**Ambiente:** WSL2 Ubuntu 24.04, i9-11900H @ 2.50GHz, RTX 3060 Laptop GPU (30 SMs, Compute 8.6)
+**Compilação CPU:** `g++ -O3 -fopenmp -march=native -std=c++17` | **CUDA:** `nvcc -arch=sm_86 -O3 -std=c++17`
+
+---
+
+## Índice de Issues (Relatório Técnico)
+
+| # | Issue | Foco | Resultado Principal |
+|:---|:---|:---|:---|
+| 1 | [Profiling do baseline — callgrind, perf stat, hyperfine](../../issues/1) | Identificação de gargalos | `Backward()` = 68.23% das instruções, 442K cache misses |
+| 2 | [Otimização CPU — flatten, const ref, pré-alocação, OpenMP](../../issues/2) | Otimização de memória + paralelismo | **2.39x speedup**, -54% instruções; OpenMP ineficaz para camadas pequenas |
+| 3 | [Migração CUDA básica — kernels forward/backward/loss](../../issues/3) | Porting para GPU | 48x mais lento que CPU; overhead de launch/memcpy domina |
+| 4 | [Otimizações CUDA avançadas — shared mem, fused kernels, streams](../../issues/4) | Redução de overhead CUDA | **1.62x** vs CUDA básico; memcpy -94%, launches -42% |
+
+---
+
+## Estrutura do Repositório
+
+```
+├── barenn.cpp              # Código legado (original do fork)
+├── barenn_cpu.cpp           # CPU otimizado (flatten, const ref, pré-alocação)
+├── barenn.cu                # CUDA básico (5 kernels, online SGD)
+├── barenn_cuda_opt.cu       # CUDA otimizado (shared mem, streams, fused kernels)
+├── profiling/               # Dados de profiling (callgrind, perf, nsys, hyperfine)
+├── slurm/                   # Scripts SLURM para cluster Franky (Insper HPC)
+└── README.md
+```
+
+## Compilação e Execução
+
+```bash
+# Baseline (legado)
+g++ -O2 -std=c++17 barenn.cpp -o barenn && ./barenn
+
+# CPU otimizado
+g++ -O3 -fopenmp -march=native -std=c++17 barenn_cpu.cpp -o barenn_cpu && ./barenn_cpu
+
+# CUDA básico
+nvcc -arch=sm_86 -O2 -std=c++17 barenn.cu -o barenn_cuda && ./barenn_cuda
+
+# CUDA otimizado
+nvcc -arch=sm_86 -O3 -std=c++17 barenn_cuda_opt.cu -o barenn_cuda_opt && ./barenn_cuda_opt
+```
+
+## Discussão Geral
+
+A otimização CPU demonstrou que **layout de memória é o fator dominante** para redes pequenas: flatten de `vector<vector<float>>` para memória contígua, eliminação de cópias por valor e pré-alocação de buffers reduziram instruções em 54% e cache misses em 56%. OpenMP foi testado (1-16 threads) e demonstrado como contraproducente para camadas de 10-32 neurônios — um caso clássico de granularidade insuficiente para paralelismo (Lei de Amdahl).
+
+A migração CUDA revelou que **GPUs não são panaceia**: para redes com camadas pequenas, o overhead de kernel launch (~2.9 μs × 2.3M lançamentos) e memcpy síncrono (~35 μs × 390K chamadas) supera o tempo de computação efetiva. As otimizações avançadas (shared memory, fused kernels, CUDA streams, pinned memory) reduziram o overhead em 38%, mas a GPU permanece mais lenta que a CPU. Isso é esperado e demonstra compreensão crítica do trade-off overhead vs computação em GPGPU.
+
+---
+
 # Projeto Barenn: O Legado, a Sobrevivência e o Salto para a GPU
 
 Era uma segunda-feira aparentemente tranquila quando a demanda chegou à sua mesa. A liderança técnica se aproximou com um sorriso contido e soltou aquela frase clássica que faz qualquer engenheiro gelar por dentro:
