@@ -1,0 +1,4 @@
+Benchmark 1: /tmp/barenn
+  Time (mean ± σ):      1.343 s ±  0.096 s    [User: 1.315 s, System: 0.009 s]
+  Range (min … max):    1.251 s …  1.497 s    5 runs
+ 
