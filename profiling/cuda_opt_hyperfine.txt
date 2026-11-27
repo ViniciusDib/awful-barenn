@@ -1,0 +1,4 @@
+Benchmark 1: /tmp/barenn_cuda_opt
+  Time (mean ± σ):     16.735 s ±  0.039 s    [User: 15.561 s, System: 0.989 s]
+  Range (min … max):   16.698 s … 16.776 s    3 runs
+ 
