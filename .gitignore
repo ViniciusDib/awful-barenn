@@ -1,0 +1,11 @@
+# Binários de profiling (grandes, não versionáveis)
+profiling/*.out
+profiling/*.nsys-rep
+profiling/*.sqlite
+
+# Compilados
+*.o
+*.exe
+barenn_cpu
+barenn_cuda
+barenn_cuda_opt
