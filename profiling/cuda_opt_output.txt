@@ -1,0 +1,59 @@
+=== GPU Info ===
+Device:          NVIDIA GeForce RTX 3060 Laptop GPU
+Compute:         sm_86
+SMs:             30
+Global Memory:   6143 MB
+Shared/Block:    48 KB
+Warp Size:       32
+================
+
+Modo: Online SGD (streams+pinned) (batch_size=1)
+
+Tecnicas CUDA avancadas ativas:
+  [x] Shared memory (input caching)
+  [x] Fused kernels (matmul+bias+ativacao)
+  [x] Persistent device memory
+  [x] Warp-level reduction (__shfl_down_sync)
+  [x] CUDA event timing
+  [x] Pinned host memory (cudaMallocHost)
+  [x] CUDA Streams x2 (double-buffered async H2D)
+
+TREINO | 3823 imagens
+Epoca  1/51 | perda media 0.4129
+Epoca  6/51 | perda media 0.0442
+Epoca 11/51 | perda media 0.0312
+Epoca 16/51 | perda media 0.0261
+Epoca 21/51 | perda media 0.0227
+Epoca 26/51 | perda media 0.0204
+Epoca 31/51 | perda media 0.0185
+Epoca 36/51 | perda media 0.0168
+Epoca 41/51 | perda media 0.0154
+Epoca 46/51 | perda media 0.0144
+Epoca 51/51 | perda media 0.0133
+Tempo de treino 17.5691 s
+
+--- Detalhamento de Tempo (1 amostra, sem update) ---
+H2D Transfer: 0.1084 ms
+Forward:      0.1012 ms
+Loss:         0.0041 ms
+Backward:     0.0154 ms
+Total:        0.2291 ms
+
+AVALIACAO FINAL
+Acuracia 95.4% | 1714 acertos em 1797 imagens
+Perda media 0.0444
+
+ALGUMAS INFERENCIAS
+Esperado  Previsto
+       0         0
+       1         1
+       2         8
+       3         3
+       5         9
+       7         9
+
+CONFUSOES MAIS FREQUENTES
+Esperado  Previsto  Ocorrencias
+       7         9           10
+       3         2            7
+       8         1            7
