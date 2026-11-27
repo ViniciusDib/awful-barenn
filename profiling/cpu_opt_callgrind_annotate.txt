@@ -1,0 +1,80 @@
+--------------------------------------------------------------------------------
+Profile data file '/mnt/c/Users/vinic/OneDrive/Desktop/APS2SUP/profiling/callgrind_cpu_opt.out' (creator: callgrind-3.22.0)
+--------------------------------------------------------------------------------
+I1 cache: 
+D1 cache: 
+LL cache: 
+Timerange: Basic block 0 - 864704504
+Trigger: Program termination
+Profiled target:  /tmp/barenn_cpu_cg (PID 399, part 1)
+Events recorded:  Ir
+Events shown:     Ir
+Event sort order: Ir
+Thresholds:       99
+Include dirs:     
+User annotated:   
+Auto-annotation:  on
+
+--------------------------------------------------------------------------------
+Ir                     
+--------------------------------------------------------------------------------
+6,404,262,305 (100.0%)  PROGRAM TOTALS
+
+--------------------------------------------------------------------------------
+Ir                      file:function
+--------------------------------------------------------------------------------
+2,936,298,199 (45.85%)  ???:main [/tmp/barenn_cpu_cg]
+2,306,031,828 (36.01%)  ???:Barenn::DenseLayer::Forward(std::vector<float, std::allocator<float> > const&) [clone ._omp_fn.0] [/tmp/barenn_cpu_cg]
+   77,184,050 ( 1.21%)  ./malloc/./malloc/malloc.c:_int_free_merge_chunk [/usr/lib/x86_64-linux-gnu/libc.so.6]
+   75,150,362 ( 1.17%)  ./malloc/./malloc/malloc.c:_int_malloc [/usr/lib/x86_64-linux-gnu/libc.so.6]
+   66,726,354 ( 1.04%)  ./malloc/./malloc/malloc.c:_int_memalign [/usr/lib/x86_64-linux-gnu/libc.so.6]
+   65,047,085 ( 1.02%)  ./stdlib/./stdlib/strtod_l.c:____strtof_l_internal [/usr/lib/x86_64-linux-gnu/libc.so.6]
+   59,985,422 ( 0.94%)  ???:std::num_get<char, std::istreambuf_iterator<char, std::char_traits<char> > >::_M_extract_float(std::istreambuf_iterator<char, std::char_traits<char> >, std::istreambuf_iterator<char, std::char_traits<char> >, std::ios_base&, std::_Ios_Iostate&, std::string&) const [/usr/lib/x86_64-linux-gnu/libstdc++.so.6.0.33]
+   57,451,165 ( 0.90%)  ./malloc/./malloc/malloc.c:_int_free_maybe_consolidate [/usr/lib/x86_64-linux-gnu/libc.so.6]
+   56,669,760 ( 0.88%)  ???:0x00000000000229f0 [/usr/lib/x86_64-linux-gnu/libgomp.so.1.0.0]
+   51,947,280 ( 0.81%)  ???:GOMP_parallel [/usr/lib/x86_64-linux-gnu/libgomp.so.1.0.0]
+   46,634,505 ( 0.73%)  ???:0x00000000000227d0 [/usr/lib/x86_64-linux-gnu/libgomp.so.1.0.0]
+   45,403,836 ( 0.71%)  ./malloc/./malloc/malloc.c:_int_free [/usr/lib/x86_64-linux-gnu/libc.so.6]
+   37,766,400 ( 0.59%)  ???:std::num_get<char, std::istreambuf_iterator<char, std::char_traits<char> > >::do_get(std::istreambuf_iterator<char, std::char_traits<char> >, std::istreambuf_iterator<char, std::char_traits<char> >, std::ios_base&, std::_Ios_Iostate&, float&) const [/usr/lib/x86_64-linux-gnu/libstdc++.so.6.0.33]
+   36,575,018 ( 0.57%)  ???:std::istream::sentry::sentry(std::istream&, bool) [/usr/lib/x86_64-linux-gnu/libstdc++.so.6.0.33]
+   29,515,500 ( 0.46%)  ???:0x0000000000025a10 [/usr/lib/x86_64-linux-gnu/libgomp.so.1.0.0]
+   28,925,190 ( 0.45%)  ./malloc/./malloc/malloc.c:_mid_memalign.isra.0 [/usr/lib/x86_64-linux-gnu/libc.so.6]
+   26,915,604 ( 0.42%)  ./malloc/./malloc/malloc.c:free [/usr/lib/x86_64-linux-gnu/libc.so.6]
+   22,431,780 ( 0.35%)  ???:0x00000000000186f0 [/usr/lib/x86_64-linux-gnu/libgomp.so.1.0.0]
+   21,642,021 ( 0.34%)  ???:std::vector<float, std::allocator<float> >::operator=(std::vector<float, std::allocator<float> > const&) [clone .isra.0] [/tmp/barenn_cpu_cg]
+   19,494,612 ( 0.30%)  ???:0x0000000000147b90 [/usr/lib/x86_64-linux-gnu/libstdc++.so.6.0.33]
+   18,703,360 ( 0.29%)  ???:std::istream& std::istream::_M_extract<float>(float&) [/usr/lib/x86_64-linux-gnu/libstdc++.so.6.0.33]
+   17,547,893 ( 0.27%)  ./malloc/./malloc/malloc.c:systrim.constprop.0 [/usr/lib/x86_64-linux-gnu/libc.so.6]
+   16,693,406 ( 0.26%)  ./malloc/./malloc/malloc.c:malloc [/usr/lib/x86_64-linux-gnu/libc.so.6]
+   13,224,178 ( 0.21%)  ???:Barenn::ler_dados(std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&) [/tmp/barenn_cpu_cg]
+   12,948,480 ( 0.20%)  ???:std::basic_istream<char, std::char_traits<char> >& std::operator>><char, std::char_traits<char> >(std::basic_istream<char, std::char_traits<char> >&, char&) [/usr/lib/x86_64-linux-gnu/libstdc++.so.6.0.33]
+   12,948,480 ( 0.20%)  ???:void std::__convert_to_v<float>(char const*, float&, std::_Ios_Iostate&, __locale_struct* const&) [/usr/lib/x86_64-linux-gnu/libstdc++.so.6.0.33]
+   12,932,513 ( 0.20%)  ./string/../sysdeps/x86_64/multiarch/memmove-vec-unaligned-erms.S:__memcpy_avx_unaligned_erms [/usr/lib/x86_64-linux-gnu/libc.so.6]
+   12,531,168 ( 0.20%)  ./malloc/./malloc/malloc.c:unlink_chunk.isra.0 [/usr/lib/x86_64-linux-gnu/libc.so.6]
+   11,509,760 ( 0.18%)  ???:std::string::reserve(unsigned long) [/usr/lib/x86_64-linux-gnu/libstdc++.so.6.0.33]
+   11,215,890 ( 0.18%)  ???:0x000000000001b490 [/usr/lib/x86_64-linux-gnu/libgomp.so.1.0.0]
+   11,207,681 ( 0.18%)  ./stdlib/./stdlib/strtod_l.c:str_to_mpn.isra.0 [/usr/lib/x86_64-linux-gnu/libc.so.6]
+   11,122,440 ( 0.17%)  ./string/../sysdeps/x86_64/multiarch/memset-vec-unaligned-erms.S:__memset_avx2_unaligned_erms [/usr/lib/x86_64-linux-gnu/libc.so.6]
+   10,288,823 ( 0.16%)  ???:0x00000000001164e0 [/usr/lib/x86_64-linux-gnu/libstdc++.so.6.0.33]
+   10,035,270 ( 0.16%)  ???:0x0000000000024680 [/usr/lib/x86_64-linux-gnu/libgomp.so.1.0.0]
+    9,444,960 ( 0.15%)  ???:0x000000000001b500 [/usr/lib/x86_64-linux-gnu/libgomp.so.1.0.0]
+    9,384,867 ( 0.15%)  ./stdlib/./stdlib/strtod_l.c:round_and_return [/usr/lib/x86_64-linux-gnu/libc.so.6]
+    9,351,680 ( 0.15%)  ???:std::string::_Rep::_M_clone(std::allocator<char> const&, unsigned long) [/usr/lib/x86_64-linux-gnu/libstdc++.so.6.0.33]
+    8,854,650 ( 0.14%)  ???:0x000000000000e530 [/usr/lib/x86_64-linux-gnu/libgomp.so.1.0.0]
+    8,632,320 ( 0.13%)  ???:std::string::_Rep::_S_create(unsigned long, unsigned long, std::allocator<char> const&) [/usr/lib/x86_64-linux-gnu/libstdc++.so.6.0.33]
+    8,037,942 ( 0.13%)  ???:0x0000000000142070 [/usr/lib/x86_64-linux-gnu/libstdc++.so.6.0.33]
+    6,323,868 ( 0.10%)  ???:std::string::push_back(char) [/usr/lib/x86_64-linux-gnu/libstdc++.so.6.0.33]
+    5,935,344 ( 0.09%)  ???:operator new(unsigned long) [/usr/lib/x86_64-linux-gnu/libstdc++.so.6.0.33]
+    5,395,620 ( 0.08%)  ???:std::locale::facet::_S_get_c_locale() [/usr/lib/x86_64-linux-gnu/libstdc++.so.6.0.33]
+    5,036,976 ( 0.08%)  ./string/../sysdeps/x86_64/multiarch/strlen-avx2.S:__strlen_avx2 [/usr/lib/x86_64-linux-gnu/libc.so.6]
+    4,748,900 ( 0.07%)  ???:0x000000000013eae0 [/usr/lib/x86_64-linux-gnu/libstdc++.so.6.0.33]
+    4,722,480 ( 0.07%)  ???:omp_get_num_threads [/usr/lib/x86_64-linux-gnu/libgomp.so.1.0.0]
+    4,391,575 ( 0.07%)  ./stdlib/./stdlib/grouping.c:__correctly_grouped_prefixmb [/usr/lib/x86_64-linux-gnu/libc.so.6]
+
+--------------------------------------------------------------------------------
+The following files chosen for auto-annotation could not be found:
+--------------------------------------------------------------------------------
+  ./malloc/./malloc/malloc.c
+  ./stdlib/./stdlib/grouping.c
+  ./stdlib/./stdlib/strtod_l.c
+  ./string/../sysdeps/x86_64/multiarch/memmove-vec-unaligned-erms.S

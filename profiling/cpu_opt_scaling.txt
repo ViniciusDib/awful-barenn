@@ -1,0 +1,5 @@
+Threads=1: 0.7508s
+Threads=2: 0.7946s
+Threads=4: 1.0419s
+Threads=8: 1.3241s
+Threads=16: 7.6499s

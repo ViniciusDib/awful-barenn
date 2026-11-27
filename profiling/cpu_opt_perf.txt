@@ -1,0 +1,51 @@
+Threads: 1
+TREINO | 3823 imagens
+Epoca  1/51 | perda media 0.4129
+Epoca  6/51 | perda media 0.0442
+Epoca 11/51 | perda media 0.0312
+Epoca 16/51 | perda media 0.0261
+Epoca 21/51 | perda media 0.0227
+Epoca 26/51 | perda media 0.0204
+Epoca 31/51 | perda media 0.0184
+Epoca 36/51 | perda media 0.0169
+Epoca 41/51 | perda media 0.0156
+Epoca 46/51 | perda media 0.0144
+Epoca 51/51 | perda media 0.0135
+Tempo de treino 0.5006 s
+
+AVALIACAO FINAL
+Acuracia 95.6% | 1718 acertos em 1797 imagens
+Perda media 0.0438
+
+ALGUMAS INFERENCIAS
+Esperado  Previsto
+       0         0
+       1         1
+       2         8
+       3         3
+       5         9
+       7         9
+
+CONFUSOES MAIS FREQUENTES
+Esperado  Previsto  Ocorrencias
+       7         9            8
+       3         2            6
+       8         1            6
+
+ Performance counter stats for '/tmp/barenn_cpu':
+
+            195130      cache-misses                     #   14.91% of all cache refs         
+           1309095      cache-references                                                      
+        1113145116      L1-dcache-loads                                                       
+           1561736      L1-dcache-load-misses            #    0.14% of all L1-dcache accesses 
+        4842810062      instructions                     #    2.17  insn per cycle            
+        2232556905      cycles                                                                
+         755227284      branches                                                              
+           4352759      branch-misses                    #    0.58% of all branches           
+
+       0.553495317 seconds time elapsed
+
+       0.504619000 seconds user
+       0.045128000 seconds sys
+
+
